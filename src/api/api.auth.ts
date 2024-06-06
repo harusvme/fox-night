@@ -1,8 +1,8 @@
 import { instance } from "./api.config.ts";
 
 export default class AuthService {
-    login(email: string, password: string) {
-        return instance.post("/api/v1/auth/login", { email, password });
+    login(login: string, password: string) {
+        return instance.post("/auth/login", { login, password });
     }
 
     refreshToken() {

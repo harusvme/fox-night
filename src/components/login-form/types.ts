@@ -5,6 +5,6 @@ export type LoginFormProps = {
 };
 
 export type LoginData = {
-    email: string;
+    login: string;
     password: string;
 };

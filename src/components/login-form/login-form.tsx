@@ -18,7 +18,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
                         variant="outlined"
                         label="логин"
                         type="text"
-                        {...register("email", { required: true })}
+                        {...register("login", { required: true })}
                     />
                     {errors.email && <span>{errors.email.message}</span>}
                 </div>

@@ -2,7 +2,7 @@ import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 export const instance = axios.create({
     withCredentials: true,
-    baseURL: "https://api.escuelajs.co",
+    baseURL: "https://localhost:8084",
 });
 
 instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
@@ -23,7 +23,7 @@ instance.interceptors.response.use(
             !error.config._isRetry
         ) {
             try {
-                const resp = await instance.get("/api/v1/auth/refresh-token");
+                const resp = await instance.get("/aut");
                 localStorage.setItem("token", resp.data.accessToken);
                 return instance.request(originalRequest);
             } catch (error) {
