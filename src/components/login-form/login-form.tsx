@@ -20,7 +20,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
                         type="text"
                         {...register("login", { required: true })}
                     />
-                    {errors.email && <span>{errors.email.message}</span>}
+                    {errors.login && <span>{errors.login.message}</span>}
                 </div>
                 <div className={styles.form_field}>
                     <TextField

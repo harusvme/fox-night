@@ -10,11 +10,11 @@ class AuthStore {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    async login(email: string, password: string) {
+    async login(login: string, password: string) {
         this.isAuthInProgress = true;
         try {
-            const resp = await this.authService.login(email, password);
-            localStorage.setItem("token", resp.data.accessToken);
+            const resp = await this.authService.login(login, password);
+            localStorage.setItem("token", resp.data.data.accessToken);
             this.isAuth = true;
         } catch (err) {
             console.log("login error");
@@ -27,7 +27,7 @@ class AuthStore {
         this.isAuthInProgress = true;
         try {
             const resp = await this.authService.refreshToken();
-            localStorage.setItem("token", resp.data.accessToken);
+            localStorage.setItem("token", resp.data.data.accessToken);
             this.isAuth = true;
         } catch (err) {
             console.log("login error");

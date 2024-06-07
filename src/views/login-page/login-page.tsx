@@ -8,7 +8,7 @@ import styles from "./styles.module.scss";
 
 export const LoginPage: FC = observer(() => {
     const handleSubmit = (loginData: LoginData) => {
-        AuthStore.login(loginData.email, loginData.password);
+        AuthStore.login(loginData.login, loginData.password);
     };
     return (
         <div className={styles.login}>
