@@ -23,11 +23,9 @@ instance.interceptors.response.use(
             !error.config._isRetry
         ) {
             try {
-                setTimeout(async ()=>{
-                    const resp = await instance.get("/auth/refresh-token");
-                    localStorage.setItem("token", resp.data.accessToken);
-                    return instance.request(originalRequest)
-            },300000);
+                const resp = await instance.get("/auth/refresh-token");
+                localStorage.setItem("token", resp.data.data.refreshToken);
+                return instance.request(originalRequest)
             } catch (error) {
                 console.log("AUTH ERROR");
             }

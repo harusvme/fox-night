@@ -39,7 +39,6 @@ export const ImageUploader: FC<ImageUploaderProps> = ({ className }) => {
 
                 if (response.status === 201) {
                     const data = await response.json();
-                    console.log(data);
                     setAvatarURL(data?.location);
                 }
             }

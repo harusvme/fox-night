@@ -16,9 +16,13 @@ class AuthStore {
             const resp = await this.authService.login(login, password);
             localStorage.setItem("token", resp.data.data.accessToken);
             this.isAuth = true;
+            setTimeout(() => {
+                window.location.href = 'http://localhost:5173/users';
+            }, 500);
         } catch (err) {
             console.log("login error");
-        } finally {
+        } 
+        finally {
             this.isAuthInProgress = false;
         }
     }
@@ -27,10 +31,11 @@ class AuthStore {
         this.isAuthInProgress = true;
         try {
             const resp = await this.authService.refreshToken();
-            localStorage.setItem("token", resp.data.data.accessToken);
+            localStorage.setItem("token", resp.data.data.refreshToken)
             this.isAuth = true;
+            console.log(this.isAuth);
         } catch (err) {
-            console.log("login error");
+            console.log('auth error');
         } finally {
             this.isAuthInProgress = false;
         }

@@ -12,7 +12,7 @@ export const Profile: FC<any> = ({ role }) => {
         <div className={styles.profile}>
             <div className={styles.profile_head}>
                 <ImageUploader className={styles.profile_image}></ImageUploader>
-                <div className={styles.profile_head_info}>
+                <div className={styles.profile_user}>
                     <Editable initialValue="Иванов Иван Иванович" type="text" />
                     <Typography>В компании с 1 января</Typography>
                 </div>

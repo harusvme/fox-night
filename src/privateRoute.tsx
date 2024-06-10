@@ -1,16 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
-import authStore from "./store/store.ts";
 import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
+import AuthStore from "./store/store.ts";
 
-const PrivateRoute = () => {
-    if (authStore.isAuthInProgress) {
-        return <div>Checking auth...</div>;
+const PrivateRoute = observer(() => {
+    if (AuthStore.isAuthInProgress) {
+        return <div>Проверка авторизации...</div>;
     }
-    if (authStore.isAuth) {
-        return <Outlet />;
-    } else {
-        return <Navigate to="/" />;
-    }
-};
 
-export default observer(PrivateRoute);
+    return AuthStore.isAuth ? <Outlet /> : <Navigate to="/" />;
+});
+
+export default PrivateRoute;
