@@ -6,24 +6,25 @@ import {
     GetUsersData,
     UserResponse,
     UsersResponse,
+    UpdateUser,
 } from "./types.ts";
 
 export const getUsers: GetUsersData = async () => {
     const users = await instance.get<UsersResponse>("/users");
 
-    return users.data;
+    return users;
 };
 
 export const getUser: GetUserData = async (id) => {
     const user = await instance.get<UserResponse>(`/users/${id}`);
 
-    return user.data;
+    return user;
 };
 
 export const deleteUser: DeleteUser = async (id) => {
     const user = await instance.delete<boolean>(`/users/${id}`);
 
-    return user.data;
+    return user;
 };
 
 export const createUser: CreateUser = async (
@@ -51,5 +52,19 @@ export const createUser: CreateUser = async (
         photo,
     });
 
-    return user.data;
+    return user;
+};
+
+export const updateUser: UpdateUser = async (
+    id,
+    field,
+    newValue,
+) => {
+    const updateData = { id };
+    updateData[field] = newValue;
+
+    const user = await instance.patch<UserResponse>(`/users`, updateData);
+
+
+    return user;
 };

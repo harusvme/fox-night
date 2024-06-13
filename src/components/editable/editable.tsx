@@ -1,18 +1,24 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import EdiText from "react-editext";
 import styles from "./styles.module.scss";
+import { updateUser } from "../../api/api.users";
 
 import { EditableProps } from "./types";
 import { Typography } from "@mui/material";
 
 export const Editable: FC<EditableProps> = ({
+    id,
     initialValue,
     type,
     label,
     editable = false,
     className,
+    field,
 }) => {
     const [value, setValue] = useState(initialValue);
+    useEffect(() => {
+        setValue(initialValue)
+    },[initialValue])
     const Months = [
         "Января",
         "Февраля",
@@ -34,9 +40,11 @@ export const Editable: FC<EditableProps> = ({
             val = `${currentDate.getDate()} ${Months[currentDate.getMonth()]}`;
             if (currentDate.toString() !== "Invalid Date") {
                 setValue(val);
+                updateUser(id, field, val)
             }
         } else {
             setValue(val);
+            updateUser(id, field, val)
         }
     };
 

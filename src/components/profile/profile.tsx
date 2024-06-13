@@ -3,52 +3,81 @@ import { FC } from "react";
 import styles from "./styles.module.scss";
 import ImageUploader from "../../components/image-uploader";
 import { Editable } from "../editable";
-import { Typography } from "@mui/material";
+import { Typography, Button } from "@mui/material";
+import { ProfileProps } from "./types"
+import { deleteUser } from "../../api/api.users";
 
-export const Profile: FC<any> = ({ role }) => {
-    const hrEdit = role === "hr";
-    const userEdit = role === "hr" || role === "user";
+export const Profile: FC<ProfileProps> = ({ role, 
+    id,
+    name,
+    birthday,
+    startWork,
+    telegram,
+    city,
+    email,
+    phoneNumber,
+    login,
+    isActive,
+    photo,
+}) => {
+    const hrEdit = role === "hr" || role === "admin";
+    const userEdit = role === "hr" || role === "admin" || role === "employee";
+
+    const handleDelete = (id: number) => {
+        deleteUser(id);
+    }
     return (
         <div className={styles.profile}>
             <div className={styles.profile_head}>
                 <ImageUploader className={styles.profile_image}></ImageUploader>
                 <div className={styles.profile_user}>
-                    <Editable initialValue="Иванов Иван Иванович" type="text" />
-                    <Typography>В компании с 1 января</Typography>
+                    <Editable id={id} initialValue={name} type="text" field={'name'}/>
+                    <Typography>работает с {startWork}</Typography>
                 </div>
             </div>
             <div className={styles.prifle_fields}>
                 <Editable
-                    initialValue="test"
+                    id={id}
+                    initialValue={telegram}
                     type="text"
                     label={"телеграм"}
                     editable={userEdit}
+                    field={'telegram'}
                 />
                 <Editable
-                    initialValue="test"
+                    id={id}
+                    initialValue={email}
                     type="text"
                     label={"почта"}
                     editable={hrEdit}
+                    field={'email'}
                 />
                 <Editable
-                    initialValue="test"
+                    id={id}
+                    initialValue={phoneNumber}
                     type="text"
-                    label={"скайп"}
+                    label={"номер"}
                     editable={userEdit}
+                    field={'phoneNumber'}
                 />
                 <Editable
-                    initialValue="1 мая"
+                    id={id}
+                    initialValue={birthday}
                     type="date"
                     label={"день рождения"}
                     editable={hrEdit}
+                    field={'birthday'}
                 />
                 <Editable
-                    initialValue="test"
+                    id={id}
+                    initialValue={city}
                     type="text"
-                    label={"грейд"}
+                    label={"город"}
                     editable={hrEdit}
+                    field={'city'}
                 />
             </div>
+            {role === 'admin' && <Button onClick={()=> handleDelete(id)}>{'Удалить к чертям собачьим'}</Button>}
         </div>
     );
 };

@@ -6,6 +6,7 @@ class AuthStore {
     isAuthInProgress = false;
     authService = new AuthService();
     role = "";
+    id = 0;
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -34,6 +35,7 @@ class AuthStore {
             localStorage.setItem("token", resp.data.data.refreshToken);
             this.isAuth = true;
             this.role = resp.data.data.role;
+            this.id = resp.data.data.id;
             console.log(this.isAuth);
         } catch (err) {
             console.log("auth error");

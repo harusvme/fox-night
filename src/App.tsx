@@ -15,6 +15,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 const App: FC = observer(() => {
     const [loading, setLoading] = useState(true);
+    const [role, setRole] = useState('');
+    const [id, setId] = useState(0);
+
     const queryClient = new QueryClient();
 
     useEffect(() => {
@@ -22,22 +25,33 @@ const App: FC = observer(() => {
             await AuthStore.checkAuth();
             setLoading(false);
         };
-        checkAuth();
+
+        if (window.location.href !== "http://localhost:5173/") {
+            checkAuth();
+        }
+        else {
+            setLoading(false);
+        }
     }, [AuthStore.isAuth]);
+
+    useEffect(() => {
+        setRole(AuthStore.role);
+        setId(AuthStore.id)
+    }, [loading]);
 
     let tabs = [
         { label: "Новости", link: "/news" },
         { label: "О компании", link: "/company" },
-        { label: "Сотрудники", link: "/workers" },
+        { label: "Сотрудники", link: "/users" },
         { label: "Часы работы", link: "/worktime" },
         { label: "Профиль", link: "/profile" },
     ];
 
-    if (AuthStore.role === "admin") {
+    if (role === "admin") {
         tabs = [
             { label: "Новости", link: "/news" },
             { label: "О компании", link: "/company" },
-            { label: "Сотрудники", link: "/workers" },
+            { label: "Сотрудники", link: "/users" },
             { label: "Аудит", link: "/admin" },
             { label: "Профиль", link: "/profile" },
         ];
@@ -66,7 +80,7 @@ const App: FC = observer(() => {
                         path="/news"
                         element={
                             AuthStore.isAuth ? (
-                                <NewsPage tabs={tabs} role={AuthStore.role} />
+                                <NewsPage tabs={tabs} role={role} />
                             ) : (
                                 <Navigate to="/" />
                             )
@@ -76,7 +90,7 @@ const App: FC = observer(() => {
                         path="/company"
                         element={
                             AuthStore.isAuth ? (
-                                <InfoPage tabs={tabs} role={AuthStore.role} />
+                                <InfoPage tabs={tabs} role={role} />
                             ) : (
                                 <Navigate to="/" />
                             )
@@ -88,7 +102,8 @@ const App: FC = observer(() => {
                             AuthStore.isAuth ? (
                                 <ProfilePage
                                     tabs={tabs}
-                                    role={AuthStore.role}
+                                    role={role}
+                                    id={id}
                                 />
                             ) : (
                                 <Navigate to="/" />
@@ -101,7 +116,7 @@ const App: FC = observer(() => {
                             AuthStore.isAuth ? (
                                 <WorktimePage
                                     tabs={tabs}
-                                    role={AuthStore.role}
+                                    role={role}
                                 />
                             ) : (
                                 <Navigate to="/" />
@@ -112,7 +127,7 @@ const App: FC = observer(() => {
                         path="/workers"
                         element={
                             AuthStore.isAuth ? (
-                                <UsersPage tabs={tabs} />
+                                <UsersPage tabs={tabs} role={role}/>
                             ) : (
                                 <Navigate to="/" />
                             )
@@ -120,7 +135,7 @@ const App: FC = observer(() => {
                     />
 
                     <Route path="/users" element={<PrivateRoute />}>
-                        <Route path="" element={<UsersPage tabs={tabs} />} />
+                        <Route path="" element={<UsersPage tabs={tabs} role={role}/>} />
                     </Route>
                     <Route path="*" element={<div>404... not found </div>} />
                 </Routes>

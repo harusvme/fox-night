@@ -35,9 +35,9 @@ export type UserResponse = {
     data: UserData;
 };
 
-export type GetUserData = (id: string) => Promise<UserResponse>;
+export type GetUserData = (id: number) => Promise<UserResponse>;
 export type GetUsersData = () => Promise<UsersResponse>;
-export type DeleteUser = (id: string) => Promise<boolean>;
+export type DeleteUser = (id: number) => Promise<boolean>;
 export type CreateUser = (
     name: string,
     birthday: string,
@@ -49,4 +49,10 @@ export type CreateUser = (
     login: string,
     role: string,
     photo: string
+) => Promise<UserResponse>;
+
+export type UpdateUser = (
+    id: number,
+    field: string,
+    newValue: string,
 ) => Promise<UserResponse>;
