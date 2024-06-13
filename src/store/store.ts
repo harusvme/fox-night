@@ -5,6 +5,7 @@ class AuthStore {
     isAuth = false;
     isAuthInProgress = false;
     authService = new AuthService();
+    role = "";
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -17,12 +18,11 @@ class AuthStore {
             localStorage.setItem("token", resp.data.data.accessToken);
             this.isAuth = true;
             setTimeout(() => {
-                window.location.href = 'http://localhost:5173/users';
+                window.location.href = "http://localhost:5173/users";
             }, 500);
         } catch (err) {
             console.log("login error");
-        } 
-        finally {
+        } finally {
             this.isAuthInProgress = false;
         }
     }
@@ -31,11 +31,12 @@ class AuthStore {
         this.isAuthInProgress = true;
         try {
             const resp = await this.authService.refreshToken();
-            localStorage.setItem("token", resp.data.data.refreshToken)
+            localStorage.setItem("token", resp.data.data.refreshToken);
             this.isAuth = true;
+            this.role = resp.data.data.role;
             console.log(this.isAuth);
         } catch (err) {
-            console.log('auth error');
+            console.log("auth error");
         } finally {
             this.isAuthInProgress = false;
         }
