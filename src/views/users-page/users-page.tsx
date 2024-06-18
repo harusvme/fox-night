@@ -29,16 +29,6 @@ export const UsersPage: FC<any> = ({ tabs, role }) => {
             CreateUserData.role,
             CreateUserData.photo,
         );
-        console.log(CreateUserData.name,
-            CreateUserData.birthday,
-            CreateUserData.startWork,
-            CreateUserData.telegram,
-            CreateUserData.city,
-            CreateUserData.email,
-            CreateUserData.phoneNumber,
-            CreateUserData.login,
-            CreateUserData.role,
-            CreateUserData.photo,)
     };
 
     const handleClickOpen = () => {
@@ -51,7 +41,7 @@ export const UsersPage: FC<any> = ({ tabs, role }) => {
 
     const handleClick = async (id: number) => {
         const { data: user } = await getUser(id);
-        setCurrentUser({ ...user.data });
+        setCurrentUser({ ...user });
     }
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,10 +49,10 @@ export const UsersPage: FC<any> = ({ tabs, role }) => {
     }
 
     const filteredUsers = searchText
-    ? users?.data.data.filter(user =>
+    ? users?.data.filter(user =>
         user.name.toLowerCase().includes(searchText.toLowerCase())
     )
-    : users?.data.data;
+    : users?.data;
 
     return (
         <div className={styles.users}>

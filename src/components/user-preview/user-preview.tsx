@@ -9,11 +9,17 @@ export const UserPreview: FC<UserPreviewProps> = ({
     image,
     text,
     className,
-    id,
 }) => {
+    const transformPath = (path: string) => {
+        const urlPath = path.replace(/\\/g, '/').replace('C:/employee_pictures/', 'http://localhost:8084/employee_pictures/');
+        return urlPath;
+    };
+
+    const imageUrl = image ? transformPath(image) : image ;
+
     return (
         <div className={classNames(className, styles.user)}>
-            <img src={image} alt="Avatar" className={styles.user_avatar} />
+            <img src={imageUrl} alt="Avatar" className={styles.user_avatar} />
             {!!text && (
                 <Typography className={styles.user_text}>{text}</Typography>
             )}

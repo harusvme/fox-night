@@ -12,7 +12,7 @@ export const ProfilePage: FC<any> = ({ tabs, role, id }) => {
     useEffect(() => {
         const updateUser = async () => {
             const { data: user } = await getUser(id);
-            setCurrentUser({ ...user.data });
+            setCurrentUser({ ...user });
         }
         updateUser();
     }, [id])

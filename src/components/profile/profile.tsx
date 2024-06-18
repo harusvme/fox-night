@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import styles from "./styles.module.scss";
 import ImageUploader from "../../components/image-uploader";
@@ -24,6 +24,7 @@ export const Profile: FC<ProfileProps> = ({ role,
     const handleDelete = (id: number) => {
         deleteUser(id);
     }
+    
     return (
         <div className={styles.profile}>
             <div className={styles.profile_head}>
@@ -75,7 +76,7 @@ export const Profile: FC<ProfileProps> = ({ role,
                     field={'city'}
                 />
             </div>
-            {role === 'admin' && <Button onClick={()=> handleDelete(id)}>{'Удалить к чертям собачьим'}</Button>}
+            {role === 'admin' && <Button onClick={()=> handleDelete(id)}>{'Удалить пользователя'}</Button>}
         </div>
     );
 };

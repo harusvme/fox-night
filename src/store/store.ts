@@ -36,7 +36,6 @@ class AuthStore {
             this.isAuth = true;
             this.role = resp.data.data.role;
             this.id = resp.data.data.id;
-            console.log(this.isAuth);
         } catch (err) {
             console.log("auth error");
         } finally {

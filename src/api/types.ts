@@ -4,13 +4,9 @@ export type UsersAttributes = {
     photo: string;
 };
 
-export type UsersData = {
+export type UsersResponse = {
     result: boolean,
     data: UsersAttributes[];
-};
-
-export type UsersResponse = {
-    data: UsersData;
 };
 
 export type UserAttributes = {
@@ -28,13 +24,10 @@ export type UserAttributes = {
     photo: string;
 };
 
-export type UserData = {
-    result: boolean,
-    data: UserAttributes;
-};
 
 export type UserResponse = {
-    data: UserData;
+    result: boolean,
+    data: UserAttributes;
 };
 
 export type GetUserData = (id: number) => Promise<UserResponse>;
@@ -53,10 +46,31 @@ export type CreateUser = (
     photo: File
 ) => Promise<UserResponse>;
 
+
+export type AuditAttributes = {
+    requestTime: string;
+    name: string;
+    role: string;
+    requestType: string;
+    body: string;
+};
+
+export type AuditResponse = {
+    result: boolean,
+    data: AuditAttributes[];
+};
+
+export type GetAudit = () => Promise<AuditResponse>
+
 export type UpdateUser = (
     id: number,
     field: string,
-    newValue: string | File,
+    newValue: string,
+) => Promise<UserResponse>;
+
+export type UpdatePhoto = (
+    id: number,
+    newValue: File,
 ) => Promise<UserResponse>;
 
 export type UpdateData = {

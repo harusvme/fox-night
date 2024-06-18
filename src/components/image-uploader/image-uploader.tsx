@@ -5,13 +5,18 @@ import classNames from "classnames";
 import { ImageUploaderProps } from "./types";
 
 import styles from "./styles.module.scss";
-import { updateUser } from "../../api/api.users";
+import { updatePhoto } from "../../api/api.users";
 
 export const ImageUploader: FC<ImageUploaderProps> = ({ className, id, photo }) => {
     const [avatarURL, setAvatarURL] = useState(DefaultImage);
     useEffect(()=> {
-        if(photo) setAvatarURL(photo)
-    },[])
+        if(photo) {
+            const imageUrl = transformPath(photo) ;
+
+            setAvatarURL(imageUrl)
+        
+        }
+    },[photo])
     const fileUploadRef = useRef<HTMLInputElement | null>(null);
     const handleImageUpload = (event: SyntheticEvent) => {
         event.preventDefault();
@@ -19,7 +24,10 @@ export const ImageUploader: FC<ImageUploaderProps> = ({ className, id, photo }) 
             fileUploadRef.current.click();
         }
     };
-
+    const transformPath = (path: string) => {
+        const urlPath = path.replace(/\\/g, '/').replace('C:/employee_pictures/', 'http://localhost:8084/employee_pictures/');
+        return urlPath;
+    };
     const uploadImageDisplay = async () => {
         try {
             if (
@@ -32,8 +40,8 @@ export const ImageUploader: FC<ImageUploaderProps> = ({ className, id, photo }) 
 
                 const formData = new FormData();
 
-                formData.append("file", uploadedFile);
-                const response = !!id ? await updateUser(id, 'photo', uploadedFile) : await fetch(
+                formData.append("photo", uploadedFile);
+                const response = !!id ? await updatePhoto(id, uploadedFile) : await fetch(
                     "https://api.escuelajs.co/api/v1/files/upload",
                     {
                         method: "post",
@@ -41,17 +49,18 @@ export const ImageUploader: FC<ImageUploaderProps> = ({ className, id, photo }) 
                     }
                 );
 
-
                 if (response instanceof Response) {
                     if (response.status === 201) {
                         const data = await response.json();
-                        setAvatarURL(data?.location);
+                        const imageUrl = data?.location ? transformPath(data?.location) : data?.location ;
+                        setAvatarURL(imageUrl);
                     }
                 }
                 else {
-                    if (response.data.result === true) {
-                        const data = await response.data.data;
-                        setAvatarURL(data.photo);
+                    if (response.result === true) {
+                        const data = await response.data;
+                        const imageUrl = data?.photo ? transformPath(data.photo) : data.photo ;
+                        setAvatarURL(imageUrl);
                     }
                 }
                 
