@@ -3,12 +3,11 @@ import { Header } from "../../layout/header";
 
 import styles from "./styles.module.scss";
 import { Profile } from "../../components/profile";
-import UserAttributes from '../../api/types'
+import {UserAttributes} from '../../api/types'
 import { getUser } from "../../api/api.users";
-import { useQuery } from "react-query";
 
 export const ProfilePage: FC<any> = ({ tabs, role, id }) => {
-    const [currentUser, setCurrentUser] = useState<UserAttributes>({});
+    const [currentUser, setCurrentUser] = useState<UserAttributes>();
 
     useEffect(() => {
         const updateUser = async () => {
@@ -24,7 +23,7 @@ export const ProfilePage: FC<any> = ({ tabs, role, id }) => {
             <div className={styles.profile_wrapper}>
                 <Header tabs={tabs} />
                 <div className={styles.profile_content}>
-                    <Profile
+                    {!!currentUser && <Profile
                         id={currentUser.id}
                         email={currentUser.email}
                         phoneNumber={currentUser.phoneNumber}
@@ -33,8 +32,9 @@ export const ProfilePage: FC<any> = ({ tabs, role, id }) => {
                         startWork={currentUser.startWork} 
                         birthday={currentUser.birthday} 
                         city={currentUser.city} 
-                        role={role} 
-                    />
+                        role={role}
+                        photo={currentUser.photo}
+                    />}
                 </div>
             </div>
         </div>

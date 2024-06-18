@@ -5,6 +5,7 @@ export type UsersAttributes = {
 };
 
 export type UsersData = {
+    result: boolean,
     data: UsersAttributes[];
 };
 
@@ -28,7 +29,8 @@ export type UserAttributes = {
 };
 
 export type UserData = {
-    data: UserAttributes[];
+    result: boolean,
+    data: UserAttributes;
 };
 
 export type UserResponse = {
@@ -48,11 +50,16 @@ export type CreateUser = (
     phoneNumber: string,
     login: string,
     role: string,
-    photo: string
+    photo: File
 ) => Promise<UserResponse>;
 
 export type UpdateUser = (
     id: number,
     field: string,
-    newValue: string,
+    newValue: string | File,
 ) => Promise<UserResponse>;
+
+export type UpdateData = {
+    id: number,
+    [key: string]: any, 
+};

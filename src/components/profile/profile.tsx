@@ -16,8 +16,6 @@ export const Profile: FC<ProfileProps> = ({ role,
     city,
     email,
     phoneNumber,
-    login,
-    isActive,
     photo,
 }) => {
     const hrEdit = role === "hr" || role === "admin";
@@ -29,7 +27,7 @@ export const Profile: FC<ProfileProps> = ({ role,
     return (
         <div className={styles.profile}>
             <div className={styles.profile_head}>
-                <ImageUploader className={styles.profile_image}></ImageUploader>
+                <ImageUploader className={styles.profile_image} photo={photo} id={id}></ImageUploader>
                 <div className={styles.profile_user}>
                     <Editable id={id} initialValue={name} type="text" field={'name'}/>
                     <Typography>работает с {startWork}</Typography>

@@ -7,8 +7,6 @@ export type ProfileProps = {
     city: string;
     email: string;
     phoneNumber: string;
-    login: string;
-    isActive: boolean;
     role: string;
     photo: string;
 }

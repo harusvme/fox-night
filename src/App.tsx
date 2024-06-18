@@ -123,21 +123,17 @@ const App: FC = observer(() => {
                             )
                         }
                     />
-                    <Route
-                        path="/workers"
-                        element={
-                            AuthStore.isAuth ? (
-                                <UsersPage tabs={tabs} role={role}/>
-                            ) : (
-                                <Navigate to="/" />
-                            )
-                        }
-                    />
 
                     <Route path="/users" element={<PrivateRoute />}>
                         <Route path="" element={<UsersPage tabs={tabs} role={role}/>} />
                     </Route>
-                    <Route path="*" element={<div>404... not found </div>} />
+                    <Route path="*" element={
+                            AuthStore.isAuth ? (
+                                <UsersPage tabs={tabs} role={role} />
+                            ) : (
+                                <Navigate to="/" />
+                            )
+                        } />
                 </Routes>
             </BrowserRouter>
         </QueryClientProvider>

@@ -7,24 +7,25 @@ import {
     UserResponse,
     UsersResponse,
     UpdateUser,
+    UpdateData,
 } from "./types.ts";
 
 export const getUsers: GetUsersData = async () => {
     const users = await instance.get<UsersResponse>("/users");
 
-    return users;
+    return users.data;
 };
 
 export const getUser: GetUserData = async (id) => {
     const user = await instance.get<UserResponse>(`/users/${id}`);
 
-    return user;
+    return user.data;
 };
 
 export const deleteUser: DeleteUser = async (id) => {
     const user = await instance.delete<boolean>(`/users/${id}`);
 
-    return user;
+    return user.data;
 };
 
 export const createUser: CreateUser = async (
@@ -52,7 +53,7 @@ export const createUser: CreateUser = async (
         photo,
     });
 
-    return user;
+    return user.data;
 };
 
 export const updateUser: UpdateUser = async (
@@ -60,11 +61,10 @@ export const updateUser: UpdateUser = async (
     field,
     newValue,
 ) => {
-    const updateData = { id };
+    const updateData: UpdateData = { id };
     updateData[field] = newValue;
 
     const user = await instance.patch<UserResponse>(`/users`, updateData);
 
-
-    return user;
+    return user.data;
 };

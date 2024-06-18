@@ -1,13 +1,17 @@
-import { useState, useRef, FC, SyntheticEvent } from "react";
+import { useState, useRef, FC, SyntheticEvent, useEffect } from "react";
 import DefaultImage from "../../assets/default-image.jpg";
 import UploadingAnimation from "../../assets/uploading.gif";
 import classNames from "classnames";
 import { ImageUploaderProps } from "./types";
 
 import styles from "./styles.module.scss";
+import { updateUser } from "../../api/api.users";
 
-export const ImageUploader: FC<ImageUploaderProps> = ({ className }) => {
+export const ImageUploader: FC<ImageUploaderProps> = ({ className, id, photo }) => {
     const [avatarURL, setAvatarURL] = useState(DefaultImage);
+    useEffect(()=> {
+        if(photo) setAvatarURL(photo)
+    },[])
     const fileUploadRef = useRef<HTMLInputElement | null>(null);
     const handleImageUpload = (event: SyntheticEvent) => {
         event.preventDefault();
@@ -29,7 +33,7 @@ export const ImageUploader: FC<ImageUploaderProps> = ({ className }) => {
                 const formData = new FormData();
 
                 formData.append("file", uploadedFile);
-                const response = await fetch(
+                const response = !!id ? await updateUser(id, 'photo', uploadedFile) : await fetch(
                     "https://api.escuelajs.co/api/v1/files/upload",
                     {
                         method: "post",
@@ -37,14 +41,24 @@ export const ImageUploader: FC<ImageUploaderProps> = ({ className }) => {
                     }
                 );
 
-                if (response.status === 201) {
-                    const data = await response.json();
-                    setAvatarURL(data?.location);
+
+                if (response instanceof Response) {
+                    if (response.status === 201) {
+                        const data = await response.json();
+                        setAvatarURL(data?.location);
+                    }
                 }
+                else {
+                    if (response.data.result === true) {
+                        const data = await response.data.data;
+                        setAvatarURL(data.photo);
+                    }
+                }
+                
             }
         } catch (error) {
             console.log(error);
-            setAvatarURL(DefaultImage);
+            !!photo ? setAvatarURL(photo) : setAvatarURL(DefaultImage);
         }
     };
 
