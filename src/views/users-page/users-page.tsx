@@ -77,8 +77,8 @@ export const UsersPage: FC<any> = ({ tabs, role }) => {
                                         />
                                     </li>
                                 ))}
-                        </ul>
-                        <Button variant="outlined" onClick={handleClickOpen}>Создать пользователя</Button>
+                        </ul> 
+                        {(role === 'admin' || role === 'hr') && <Button variant="outlined" onClick={handleClickOpen}>Создать пользователя</Button>}
                         <Dialog
                             open={open}
                             onClose={handleClose}
@@ -102,7 +102,7 @@ export const UsersPage: FC<any> = ({ tabs, role }) => {
                         startWork={currentUser.startWork} 
                         birthday={currentUser.birthday} 
                         city={currentUser.city} 
-                        role={role} 
+                        role={role}
                         photo={currentUser.photo}
                         />}
                 </div>

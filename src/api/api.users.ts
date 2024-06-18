@@ -70,7 +70,7 @@ export const updateUser: UpdateUser = async (
     const updateData: UpdateData = { id };
     updateData[field] = newValue;
 
-    const user = await instance.patch<UserResponse>(`/users`, updateData);
+    const user = await instance.post<UserResponse>(`/users/${id}`, updateData);
 
     return user.data;
 };
