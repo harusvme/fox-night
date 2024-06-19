@@ -55,6 +55,10 @@ class AuthStore {
             this.isAuthInProgress = false;
         }
     }
+
+    get getUserId() {
+        return this.id;
+    }
 }
 
 export default new AuthStore();

@@ -40,13 +40,21 @@ export const Editable: FC<EditableProps> = ({
         return emailRegex.test(email);
     };
 
+    const formatDateString = (date: Date): string => {
+        const year = date.getUTCFullYear();
+        const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+        const day = date.getUTCDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     const handleSave = (val: string) => {
         if (type === "date") {
             const currentDate = new Date(val);
+            const formattedDate = formatDateString(currentDate);
             val = `${currentDate.getDate()} ${Months[currentDate.getMonth()]}`;
             if (currentDate.toString() !== "Invalid Date") {
                 setValue(val);
-                if(id && field) updateUser(id, field, `${currentDate.getUTCFullYear()}-${currentDate.getUTCMonth() + 1}-${currentDate.getUTCDate()}`)
+                if(id && field) updateUser(id, field, formattedDate);
             }
         } else if (field === 'email') {
             if (!validateEmail(val)) {

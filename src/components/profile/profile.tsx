@@ -21,6 +21,8 @@ export const Profile: FC<ProfileProps> = ({ role,
     const hrEdit = role === "hr" || role === "admin";
     const userEdit = role === "hr" || role === "admin" || role === "employee";
 
+const currentUserId = AuthStore.getUserId;
+
     const handleDelete = (id: number) => {
         deleteUser(id);
     }
@@ -81,7 +83,7 @@ export const Profile: FC<ProfileProps> = ({ role,
                 />
             </div>
             {role === 'admin' && <Button onClick={()=> handleDelete(id)}>{'Удалить пользователя'}</Button>}
-            <Button onClick={handleLogout}>{'Выйти'}</Button>
+            {currentUserId === id && <Button onClick={handleLogout}>{'Выйти'}</Button>}
         </div>
     );
 };
