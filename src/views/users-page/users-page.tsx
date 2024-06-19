@@ -73,7 +73,6 @@ export const UsersPage: FC<any> = ({ tabs, role }) => {
                                         <UserPreview
                                             image={photo}
                                             text={name}
-                                            id={id.toString()}
                                         />
                                     </li>
                                 ))}

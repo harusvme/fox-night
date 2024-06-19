@@ -1,11 +1,11 @@
-import { FC, useEffect, useState } from "react";
-
+import { FC } from "react";
 import styles from "./styles.module.scss";
 import ImageUploader from "../../components/image-uploader";
 import { Editable } from "../editable";
 import { Typography, Button } from "@mui/material";
 import { ProfileProps } from "./types"
 import { deleteUser } from "../../api/api.users";
+import AuthStore from "../../store/store.ts";
 
 export const Profile: FC<ProfileProps> = ({ role, 
     id,
@@ -23,6 +23,10 @@ export const Profile: FC<ProfileProps> = ({ role,
 
     const handleDelete = (id: number) => {
         deleteUser(id);
+    }
+
+    const handleLogout = () => {
+        AuthStore.logout()
     }
     
     return (
@@ -77,6 +81,7 @@ export const Profile: FC<ProfileProps> = ({ role,
                 />
             </div>
             {role === 'admin' && <Button onClick={()=> handleDelete(id)}>{'Удалить пользователя'}</Button>}
+            <Button onClick={handleLogout}>{'Выйти'}</Button>
         </div>
     );
 };

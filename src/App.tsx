@@ -99,15 +99,11 @@ const App: FC = observer(() => {
                     <Route
                         path="/profile"
                         element={
-                            AuthStore.isAuth ? (
                                 <ProfilePage
                                     tabs={tabs}
                                     role={role}
                                     id={id}
                                 />
-                            ) : (
-                                <Navigate to="/" />
-                            )
                         }
                     />
                     <Route

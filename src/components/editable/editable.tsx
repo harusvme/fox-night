@@ -46,7 +46,7 @@ export const Editable: FC<EditableProps> = ({
             val = `${currentDate.getDate()} ${Months[currentDate.getMonth()]}`;
             if (currentDate.toString() !== "Invalid Date") {
                 setValue(val);
-                updateUser(id, field, val)
+                if(id && field) updateUser(id, field, `${currentDate.getUTCFullYear()}-${currentDate.getUTCMonth() + 1}-${currentDate.getUTCDate()}`)
             }
         } else if (field === 'email') {
             if (!validateEmail(val)) {
@@ -54,11 +54,11 @@ export const Editable: FC<EditableProps> = ({
             } else {
                 setError(null);
                 setValue(val);
-                updateUser(id, field, val);
+                if(id && field) updateUser(id, field, val);
             }
         } else {
             setValue(val);
-            updateUser(id, field, val)
+            if(id && field) updateUser(id, field, val)
         }
     };
 

@@ -10,6 +10,6 @@ export default class AuthService {
     }
 
     logout() {
-        return instance.post("/api/logout");
+        return instance.post("/auth/logout");
     }
 }
