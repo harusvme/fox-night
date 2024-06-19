@@ -25,7 +25,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ onSubmit }) => {
                 <div className={styles.form_field}>
                     <TextField
                         variant="filled"
-                        label="имя"
+                        label="Имя"
                         type="text"
                         {...register("name", { required: true })}
                     />
@@ -34,7 +34,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ onSubmit }) => {
                 <div className={styles.form_field}>
                     <TextField
                         variant="filled"
-                        label="день рождения"
+                        label="День рождения"
                         type="date"
                         InputLabelProps={{ shrink: true }}
                         {...register("birthday", { required: true })}
@@ -44,7 +44,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ onSubmit }) => {
                 <div className={styles.form_field}>
                     <TextField
                         variant="filled"
-                        label="начало работы"
+                        label="Начало работы"
                         type="date"
                         InputLabelProps={{ shrink: true }}
                         {...register("startWork", { required: true })}
@@ -54,7 +54,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ onSubmit }) => {
                 <div className={styles.form_field}>
                     <TextField
                         variant="filled"
-                        label="телеграм"
+                        label="Телеграм"
                         type="text"
                         {...register("telegram", { required: true })}
                     />
@@ -63,7 +63,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ onSubmit }) => {
                 <div className={styles.form_field}>
                     <TextField
                         variant="filled"
-                        label="город"
+                        label="Город"
                         type="text"
                         {...register("city", { required: true })}
                     />
@@ -72,7 +72,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ onSubmit }) => {
                 <div className={styles.form_field}>
                     <TextField
                         variant="filled"
-                        label="почта"
+                        label="Почта"
                         type="text"
                         {...register("email", { required: true })}
                     />
@@ -81,7 +81,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ onSubmit }) => {
                 <div className={styles.form_field}>
                     <TextField
                         variant="filled"
-                        label="номер"
+                        label="Номер"
                         type="text"
                         {...register("phoneNumber", { required: true })}
                     />
@@ -90,7 +90,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ onSubmit }) => {
                 <div className={styles.form_field}>
                     <TextField
                         variant="filled"
-                        label="логин"
+                        label="Логин"
                         type="text"
                         {...register("login", { required: true })}
                     />

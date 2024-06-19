@@ -16,6 +16,7 @@ export const Editable: FC<EditableProps> = ({
     field,
 }) => {
     const [value, setValue] = useState(initialValue);
+    const [error, setError] = useState<string | null>(null);
     useEffect(() => {
         setValue(initialValue)
     },[initialValue])
@@ -34,6 +35,11 @@ export const Editable: FC<EditableProps> = ({
         "Декабря",
     ];
 
+    const validateEmail = (email: string): boolean => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
     const handleSave = (val: string) => {
         if (type === "date") {
             const currentDate = new Date(val);
@@ -41,6 +47,14 @@ export const Editable: FC<EditableProps> = ({
             if (currentDate.toString() !== "Invalid Date") {
                 setValue(val);
                 updateUser(id, field, val)
+            }
+        } else if (field === 'email') {
+            if (!validateEmail(val)) {
+                setError('Некорректный email адрес');
+            } else {
+                setError(null);
+                setValue(val);
+                updateUser(id, field, val);
             }
         } else {
             setValue(val);
@@ -64,6 +78,7 @@ export const Editable: FC<EditableProps> = ({
                 editButtonClassName={styles.editable_button}
                 viewContainerClassName={className}
             />
+            {error && <Typography className={styles.error_text}>{error}</Typography>}
         </div>
     );
 };

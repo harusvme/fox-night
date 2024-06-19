@@ -39,7 +39,7 @@ export const Profile: FC<ProfileProps> = ({ role,
                     id={id}
                     initialValue={telegram}
                     type="text"
-                    label={"телеграм"}
+                    label={"Телеграм"}
                     editable={userEdit}
                     field={'telegram'}
                 />
@@ -47,7 +47,7 @@ export const Profile: FC<ProfileProps> = ({ role,
                     id={id}
                     initialValue={email}
                     type="text"
-                    label={"почта"}
+                    label={"Почта"}
                     editable={hrEdit}
                     field={'email'}
                 />
@@ -55,7 +55,7 @@ export const Profile: FC<ProfileProps> = ({ role,
                     id={id}
                     initialValue={phoneNumber}
                     type="text"
-                    label={"номер"}
+                    label={"Номер"}
                     editable={userEdit}
                     field={'phoneNumber'}
                 />
@@ -63,7 +63,7 @@ export const Profile: FC<ProfileProps> = ({ role,
                     id={id}
                     initialValue={birthday}
                     type="date"
-                    label={"день рождения"}
+                    label={"День рождения"}
                     editable={hrEdit}
                     field={'birthday'}
                 />
@@ -71,7 +71,7 @@ export const Profile: FC<ProfileProps> = ({ role,
                     id={id}
                     initialValue={city}
                     type="text"
-                    label={"город"}
+                    label={"Город"}
                     editable={hrEdit}
                     field={'city'}
                 />

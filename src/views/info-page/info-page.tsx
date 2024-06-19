@@ -18,7 +18,7 @@ export const InfoPage: FC<any> = ({ tabs, role }) => {
                     <div className={styles.info_head}>
                         <ImageUploader className={styles.info_image} />
                         <Editable
-                            initialValue="fox night"
+                            initialValue="Fox Night"
                             type="text"
                             editable={role === "hr"}
                             className={styles.info_title}

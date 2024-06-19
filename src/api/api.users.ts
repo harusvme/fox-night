@@ -86,7 +86,7 @@ export const updatePhoto: UpdatePhoto = async (
     formData.append('photo', newValue);
 
 
-    const user = await instance.patch<UserResponse>(`/users`, formData);
+    const user = await instance.post<UserResponse>(`/users/${id}`, formData);
 
     return user.data;
 };
